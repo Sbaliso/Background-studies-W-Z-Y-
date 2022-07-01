@@ -1,0 +1,45 @@
+Packages = {
+"VO_ALICE@POWHEG::r3178-alice1-3",
+"VO_ALICE@AliPhysics::vAN-20171201-1"
+};
+Jobtag =
+   {
+      "comment: W- simulation LHC16r with powheg"
+   };
+split = "production:1-$2";
+OutputDir = "/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/output/$1/$6/#alien_counter_03i#";
+Price = 1;
+Executable = "/alice/bin/aliroot_new";
+InputFile =
+   {
+
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/CheckESD.C",
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/Config.C",
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/base_powheg.input",
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/basiclibs.C",
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/g4libs.C",
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/rec.C",
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/sim.C",
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/simrun.sh",
+      "LF:/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/AODtrainsim.C"
+   };
+
+User = "gtaillep";
+OutputArchive =
+   {
+      "log_archive:stderr,stdout,sim.log,rec.log,check.log,AODTrain.log@disk=1",
+      "root_archive.zip:pyxsec_hists.root,AliAOD.Muons.root@disk=2"
+   };
+splitarguments = "--run $1 --eventsPerJob $3 --energy 8162. --transport $4 --generator $5 --collisionSystem $6 --beamConfig $7";
+TTL = 72000;
+Workdirectorysize =
+   {
+      "5000MB"
+   };
+GUIDFILE = "guid.txt";
+JDLVariables =
+   {
+      "Packages",
+      "OutputDir"
+   };
+Validationcommand = "/alice/cern.ch/user/g/gtaillep/simu/LHC16r_Wminus/validation.sh"
